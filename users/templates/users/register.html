@@ -9,28 +9,33 @@
       {% csrf_token %}
       <fieldset class="form-group">
           <legend class="border-bottom mb-4" style="color: white;">Sign Up</legend>
-          {{ user_form|crispy }}
-          {{ profile_form|crispy }}
-      </fieldset>
-      <br>
-      <input type="hidden" name="base64_data" id="base64" value="">
-      <div class="button-group">
-        <button id="btn-start" type="button" class="button">Start Streaming</button>
-        <button id="btn-stop" type="button" class="button">Stop Streaming</button>
-        <button id="btn-capture" type="button" class="button">Capture Image</button>
-      </div>
-      <div class="play-area">
-        <div class="play-area-sub">
-          <h3>The Stream</h3>
-          <video id="stream" width="320" height="240"></video>
-        </div>
-        <div class="play-area-sub">
-          <h3>The Capture</h3>
-          <canvas id="capture" width="320" height="240"></canvas>
-          <div id="snapshot"></div>
-        </div>
-      </div>
-
+          <div class="row" styl="display:flex;">
+            <div class="column" style="flex:60%;">
+                {{ user_form|crispy }}
+                {{ profile_form|crispy }} 
+            </div>
+            <div class="column" style="flex:40%; ">
+              <input type="hidden" name="base64_data" id="base64" value="">
+                  <div class="play-area" style="margin-left: 20%;">
+                    <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        VIEW STREAM</button>
+                    <div class="play-area-sub">
+                      <video id="stream" width="310" height="233" style="background-color: #fff;"></video>
+                    </div>
+                    <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        CAPTURE IMAGE</button>
+                    <div class="play-area-sub">
+                      <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
+                      <!-- <div id="snapshot"></div> -->
+                    </div>
+                  </div>
+                  <button id="btn-stop" type="button" class="button" style="display:none;">Stop Streaming</button> 
+            </div>
+          </div> 
+        </fieldset> 
+         
+        
+<br>
       <div class="form-group" id="signup-button">
           <button class="btn " id="signup">Sign Up</button>
       </div>

@@ -3,26 +3,33 @@
 {% block content %}
 <form action='' method="POST" >
     {% csrf_token %}
-    <div class="button-group">
-        <button id="btn-start" type="button" class="button">Start Streaming</button>
-        <button id="btn-stop" type="button" class="button">Stop Streaming</button>
-        <button id="btn-capture" type="button" class="button">Capture Image</button>
-    </div>
-        <div class="play-area">
-        <div class="play-area-sub">
-        <h3>The Stream</h3>
-        <video id="stream" width="320" height="240"></video>
-        </div>
-        <div class="play-area-sub">
-        <h3>The Capture</h3>
-        <canvas id="capture" width="320" height="240"></canvas>
-        <div id="snapshot"></div>
-        </div>
-    </div>
+    <div style="margin-left:10%; ">
     <input type="hidden" name="base64_data" id="base64" value="">
+    <br>
+            <div class="play-area">
+                <div style="display: flex;">
+                    <div style="flex: 10%;">
+                        <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                            VIEW STREAM</button>
+                        <div class="play-area-sub">   
+                        <video id="stream" width="310" height="233" style="background-color: #fff;"></video>
+                        </div>
+                    </div>
+                    <div style="flex: 50%;">
+                        <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                            CAPTURE IMAGE</button>
+                        <div class="play-area-sub">
+                        <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
+                        </div>
+                    </div>
+                <button id="btn-stop" type="button" class="button" style="display:none;">Stop Streaming</button> 
+                </div>
+            </div>
+    <br>
     <div class="form-group" id="signup-button">
         <button class="btn " id="signup">Verify</button>
     </div>
+</div>
 </form>
 <script src="{% static 'users/js/script.js' %}">
 
