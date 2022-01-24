@@ -17,3 +17,12 @@ class UserModel(models.Model):
 
 class VoteModel(models.Model):
     candidate_option=models.CharField(max_length=20)
+
+class Candidte(models.Model):
+    candidate_name=models.CharField(max_length=50)
+    candidate_party=models.CharField(max_length=100)
+    candidate_pincode=models.IntegerField()
+    vote_count=models.IntegerField()
+
+    def __str__(self):
+        return self.candidate_name

@@ -1,9 +1,14 @@
 {% extends 'users/base.html' %}
 
 {% block content %}
-<form>
+<form action="vote" method="POST">
     {% csrf_token %}
-    {{form}}
+    <ul>
+        {% for candidate in candidates %}
+            <li><input type="radio" name="selected_candidate" value="{{candidate.candidate_name}}"> {{candidate.candidate_name}}</li>
+        {% endfor %}
+       
+    </ul>
     <button>Submit</button>
 </form>
 

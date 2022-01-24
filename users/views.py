@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from . forms import UserRegisterForm,VoteForm,UserProfileForm
-from . models import UserModel
+from . models import UserModel,Candidte
 from django.contrib.auth.decorators import login_required
 import base64
 from base64 import decodebytes
@@ -89,8 +89,18 @@ def profile(request):
 
 @login_required()
 def vote(request):
-    form=VoteForm()
-    return render(request,"users/vote_form.html",{"form":form})
+    if request.method=="POST":
+        form=VoteForm(request.POST)
+        vote=request.POST['selected_candidate']
+        print(vote)
+        return HttpResponse("voted")
+    else:        
+        candidates=Candidte.objects.all()
+        form=VoteForm()
+        return render(request,"users/vote_form.html",{
+            "form":form,
+            "candidates":candidates,
+            })
 
 
 
