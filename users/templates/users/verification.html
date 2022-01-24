@@ -1,36 +1,35 @@
+
 {% extends 'users/base.html' %}
 {% load static %}
 {% block content %}
 <form action='' method="POST" >
     {% csrf_token %}
-    <div style="margin-left:10%; ">
-    <input type="hidden" name="base64_data" id="base64" value="">
-    <br>
-            <div class="play-area">
-                <div style="display: flex;">
-                    <div style="flex: 10%;">
-                        <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
-                            VIEW STREAM</button>
-                        <div class="play-area-sub">   
-                        <video id="stream" width="310" height="233" style="background-color: #fff;"></video>
-                        </div>
+        <div class="play-area" style="margin-left: 10%;">
+            <div class="row" style="display: flex;">
+                <div class="column" style="flex: 50%;">
+                    <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        VIEW STREAM</button>
+                    <div class="play-area-sub">
+                      <video id="stream" width="310" height="233" style="background-color: #fff;"></video>
                     </div>
-                    <div style="flex: 50%;">
-                        <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
-                            CAPTURE IMAGE</button>
-                        <div class="play-area-sub">
-                        <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
-                        </div>
+                </div>
+                
+                <div class="column" style="flex: 50%;">
+                    <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        CAPTURE IMAGE</button>
+                    <div class="play-area-sub">
+                      <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
+                      <div id="snapshot" style="display:none;"></div>
                     </div>
-                <button id="btn-stop" type="button" class="button" style="display:none;">Stop Streaming</button> 
                 </div>
             </div>
-    <br>
-    <div class="form-group" id="signup-button">
+            <button id="btn-stop" type="button" class="button" style="display: none;">Stop Streaming</button>
+        </div>
+    <input type="hidden" name="base64_data" id="base64" value="">
+    <div class="form-group" id="signup-button" style="margin-left: 10%;">
         <button class="btn " id="signup">Verify</button>
     </div>
-</div>
 </form>
 <script src="{% static 'users/js/script.js' %}">
-
+</script>
 {% endblock content %}
