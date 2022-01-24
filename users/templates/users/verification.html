@@ -1,30 +1,41 @@
+
 {% extends 'users/base.html' %}
 {% load static %}
 {% block content %}
 <form action='' method="POST" >
     {% csrf_token %}
-    <div class="button-group">
-        <button id="btn-start" type="button" class="button">Start Streaming</button>
-        <button id="btn-stop" type="button" class="button">Stop Streaming</button>
-        <button id="btn-capture" type="button" class="button">Capture Image</button>
-    </div>
-        <div class="play-area">
-        <div class="play-area-sub">
-        <h3>The Stream</h3>
-        <video id="stream" width="320" height="240"></video>
+        <div class="play-area" style="margin-left: 10%;">
+            <div class="row" style="display: flex;">
+                <div class="column" style="flex: 50%;">
+                    <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        VIEW STREAM</button>
+                    <div class="play-area-sub">
+                      <video id="stream" width="310" height="233" style="background-color: #fff;"></video>
+                    </div>
+                </div>
+                
+                <div class="column" style="flex: 50%;">
+                    <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                        CAPTURE IMAGE</button>
+                    <div class="play-area-sub">
+                      <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
+                      <div id="snapshot" style="display:none;"></div>
+                    </div>
+                </div>
+            </div>
+            <button id="btn-stop" type="button" class="button" style="display: none;">Stop Streaming</button>
         </div>
-        <div class="play-area-sub">
-        <h3>The Capture</h3>
-        <canvas id="capture" width="320" height="240"></canvas>
-        <div id="snapshot"></div>
-        </div>
-    </div>
     <input type="hidden" name="base64_data" id="base64" value="">
-    <div class="form-group" id="signup-button">
+    <div class="form-group" id="signup-button" style="margin-left: 10%;">
         <button class="btn " id="signup">Verify</button>
     </div>
 </form>
+<<<<<<< HEAD
 <script src="{% static 'users/js/script.js' %}"></script>
 
 
+=======
+<script src="{% static 'users/js/script.js' %}">
+</script>
+>>>>>>> origin/master
 {% endblock content %}

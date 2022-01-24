@@ -60,9 +60,8 @@ def save__image_file(base64):
     file_path=os.path.join(str(settings.MEDIA_ROOT) + "\images",ranndom_name)
     with open(file_path, "wb") as fh:
         fh.write(decodebytes(byte_data))
+    # return ranndom_name
     return file_path
-
-
 
 
 def cam_test(request):
@@ -131,11 +130,11 @@ def cam_test(request):
     if request.method=='POST':
         base64_data=request.POST["base64_image"]
         temp_img=save_temp_image(base64_data)
-        demography = DeepFace.analyze(img_path = temp_img, detector_backend = backends[4])
-        # face = DeepFace.detectFace(img_path = temp_img, target_size = (224, 224), detector_backend = backends[4])
-        print(demography)
-        # print(face)
-        os.remove(temp_img)
+        # demography = DeepFace.analyze(img_path = temp_img, detector_backend = backends[4])
+        face = DeepFace.detectFace(img_path = temp_img, target_size = (224, 224), detector_backend = backends[4])
+        # print(demography)
+        print(face)
+        # os.remove(temp_img)
 
         return  HttpResponse("IMage Captured")
     else:
