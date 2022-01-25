@@ -23,6 +23,6 @@ class UserProfileForm(forms.ModelForm):
         exclude=('if_voted','user','if_face_verified','image')
 
 class VoteForm(forms.Form):
-    choices = {'0':'Miti','1':'Mihir','2':'Ashwini'}
-    cnadidate_option=forms.ChoiceField( choices=choices,widget=forms.RadioSelect());
+    # choices = {'0':'Miti','1':'Mihir','2':'Ashwini'}
+    cnadidate_option=forms.CharField(max_length=100);
     
