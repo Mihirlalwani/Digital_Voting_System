@@ -1,15 +1,52 @@
 {% extends 'users/base.html' %}
+{% load static %}
 
 {% block content %}
-<form action="vote" method="POST">
-    {% csrf_token %}
-    <ul>
-        {% for candidate in candidates %}
-            <li><input type="radio" name="selected_candidate" value="{{candidate.candidate_name}}"> {{candidate.candidate_name}}</li>
-        {% endfor %}
-       
-    </ul>
-    <button>Submit</button>
-</form>
+    <link rel="stylesheet" href="{% static 'users/css/main.css' %}">
+    <div class="container">
+        <br>
+        <h2>Kindly select your preferred candidate - </h2>
+        <br>
+        <form action="vote" method="POST">
+            {% csrf_token %}
+            <div class="table-contents">
+                <table>
+                    <tr>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Pincode</th>
+                    </tr>
+                    {% for candidate in candidates %}
+                    <tr>
+                        <!-- <td>{{candidate.candidate_name}}</td> -->
+                        <td><input type="radio" name="selected_candidate" value="{{candidate.candidate_name}}"> {{candidate.candidate_name}}</td>
+                
+                        <td>{{candidate.candidate_party}}</td>
+                
+                        <td>{{candidate.candidate_pincode}}</td> 
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <br>
+            <div class="form-group">
+                <a class="btn" style="color: white; background-color: #fd5e14;" type="submit" id="body-link-row" href="{% url 'home' %}">Submit</a>
+            </div>
+            
+        </form>
+    </div>
+
+    <style>
+        table, th, td {
+            border: 1px solid white;
+        }
+        th, td{
+            padding: 15px;
+        }
+        .table-contents{
+                color: #fff;
+        }
+    </style>
 
 {% endblock content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
@@ -118,8 +118,12 @@ def verification(request):
             os.remove(temp_image)
             return HttpResponse("Not Verified")
         os.remove(temp_image)    
-        print(result)
-        return HttpResponse(result)
+        print(result["verified"])
+        if result["verified"]==True:
+            request.user.profile.if_face_verified = True
+            return HttpResponseRedirect("vote")
+        else:
+            return HttpResponseRedirect("verification")
     else:
         return render(request,'users/verification.html')
 
