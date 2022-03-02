@@ -3,7 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from . forms import UserRegisterForm,VoteForm,UserProfileForm
+from django.contrib.auth import logout
+from . forms import UserRegisterForm,VoteForm,UserProfileForm,UpdateProfileForm
 from . models import UserModel,Candidte
 from django.contrib.auth.decorators import login_required
 import base64
@@ -77,29 +78,53 @@ def login(request):
 
 @login_required()
 def profile(request):
-    if request.user.is_authenticated:
-        user=request.user
-        profile=request.user.profile
-        print(profile.image.path)
-    return render(request, 'users/profile.html',{
-        'user':user,
-        'profile':profile
-    })
+    face=request.user.profile.if_face_verified 
+    if face == True:
+        if request.user.is_authenticated:
+            user=request.user
+            profile=request.user.profile
+            print(profile.image.path)
+        return render(request, 'users/profile.html',{
+            'user':user,
+            'profile':profile
+        })
+    else:
+        messages.error(request,"Please Verify your face ")
+        return redirect("verification");
+
+@login_required
+def user_logout(request):
+    profile_form=UpdateProfileForm(request,instance=request.user.profile)
+    profile=profile_form.save(commit=False)            
+    profile.if_face_verified=False
+    profile_form.save()
+    logout(request)
+    return render(request,'users/logout.html')
+
+    
 
 @login_required()
 def vote(request):
-    if request.method=="POST":
-        form=VoteForm(request.POST)
-        vote=request.POST['selected_candidate']
-        print(vote)
-        return HttpResponse("voted")
-    else:        
-        candidates=Candidte.objects.all()
-        form=VoteForm()
-        return render(request,"users/vote_form.html",{
-            "form":form,
-            "candidates":candidates,
-            })
+    face=request.user.profile.if_face_verified 
+    if face == True:
+        if request.method=="POST":
+            form=VoteForm(request.POST)
+            vote=request.POST['selected_candidate']
+            print(vote)
+            return HttpResponse("voted")
+        else:        
+            candidates=Candidte.objects.all()
+            form=VoteForm()
+            print(request.user.profile.if_face_verified)
+            return render(request,"users/vote_form.html",{
+                "form":form,
+                "candidates":candidates,
+                })
+    else:
+        messages.error(request,"Please Verify your face ")
+        return redirect("verification");
+
+
 
 
 
@@ -113,16 +138,24 @@ def verification(request):
         base64_image=request.POST['base64_data']
         temp_image=save_temp_image(base64_image)
         try:
+            # result={"verified":True}
             result = DeepFace.verify(img1_path = temp_image, img2_path = user_image_path, model_name = models[0])
         except:
             os.remove(temp_image)
-            return HttpResponse("Not Verified")
+            messages.error(request,"No Face Detected");
+            return HttpResponseRedirect("verification")
         os.remove(temp_image)    
         print(result["verified"])
         if result["verified"]==True:
-            request.user.profile.if_face_verified = True
+            profile_form=UpdateProfileForm(request,instance=request.user.profile)
+            profile=profile_form.save(commit=False)            
+            profile.if_face_verified=True
+            profile_form.save()
+            
+            messages.success(request,"Face Verified Please Vote you selected candidate")
             return HttpResponseRedirect("vote")
         else:
+            messages.error(request,"Not verified , Please Try again !!!");
             return HttpResponseRedirect("verification")
     else:
         return render(request,'users/verification.html')

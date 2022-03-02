@@ -7,7 +7,7 @@
         <br>
         <h2>Kindly select your preferred candidate - </h2>
         <br>
-        <form action="vote" method="POST">
+        <form action="{% url 'vote' %}" method="POST">
             {% csrf_token %}
             <div class="table-contents">
                 <table>
@@ -31,7 +31,7 @@
 
             <br>
             <div class="form-group">
-                <a class="btn" style="color: white; background-color: #fd5e14;" type="submit" id="body-link-row" href="{% url 'home' %}">Submit</a>
+                <button class="btn" style="color: white; background-color: #fd5e14;" type="submit" id="body-link-row" >Submit</button>
             </div>
             
         </form>

@@ -11,7 +11,7 @@ class UserModel(models.Model):
     pincode=models.IntegerField()
     image=models.ImageField(upload_to="images/")    
     if_voted=models.BooleanField(default=False)
-    if_face_verified=models.BooleanField(default=False)
+    if_face_verified=models.BooleanField()
 
 
 

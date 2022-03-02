@@ -1,3 +1,4 @@
+from dataclasses import field
 from pyexpat import model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -21,6 +22,11 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model=UserModel
         exclude=('if_voted','user','if_face_verified','image')
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model=UserModel
+        fields=('if_voted','if_face_verified')
 
 class VoteForm(forms.Form):
     # choices = {'0':'Miti','1':'Mihir','2':'Ashwini'}
