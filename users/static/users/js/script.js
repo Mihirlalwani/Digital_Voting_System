@@ -50,7 +50,7 @@ var cameraStream = null;
                 const prediction = await model.estimateFaces(stream, false);
               
                 console.log(prediction);
-              
+                console.log(prediction[0].probability[0]);
                 // draw the video first
                 ctx.drawImage(stream, 0, 0, 650, 500);
               
@@ -82,7 +82,9 @@ var cameraStream = null;
 
 
             stream.addEventListener("loadeddata", async () => {
+                console.log("Up");
                 model = await blazeface.load();
+                console.log("Down");
                 // call detect faces every 100 milliseconds or 10 times every second
                 setInterval(detectFaces, 100);
               });
@@ -156,7 +158,3 @@ var cameraStream = null;
             // data.append("csrfmiddlewaretoken",csrf)
             // request.send( data );
             }
-
-            
-
-            
