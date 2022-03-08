@@ -89,7 +89,7 @@ def profile(request):
             'profile':profile
         })
     else:
-        messages.error(request,"Please Verify your face ")
+        messages.error(request,"Please verify your face!")
         return redirect("verification");
 
 @login_required
@@ -121,7 +121,7 @@ def vote(request):
                 "candidates":candidates,
                 })
     else:
-        messages.error(request,"Please Verify your face ")
+        messages.error(request,"Please verify your face!")
         return redirect("verification");
 
 
