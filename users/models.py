@@ -16,9 +16,12 @@ class UserModel(models.Model):
 
 
 class VoteModel(models.Model):
-    candidate_option=models.CharField(max_length=20)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="vote")
+    candidate_id=models.IntegerField()
+    
 
 class Candidte(models.Model):
+    candidate_id=models.IntegerField()
     candidate_name=models.CharField(max_length=50)
     candidate_party=models.CharField(max_length=100)
     candidate_pincode=models.IntegerField()
