@@ -94,7 +94,7 @@ def profile(request):
 
 @login_required
 def user_logout(request):
-    profile_form=UpdateProfileForm(request,instance=request.user.profile)
+    profile_form=UpdateProfileForm(request.POST,instance=request.user.profile)
     profile=profile_form.save(commit=False)            
     profile.if_face_verified=False
     profile_form.save()
@@ -106,10 +106,26 @@ def user_logout(request):
 @login_required()
 def vote(request):
     face=request.user.profile.if_face_verified 
+    voted=request.user.profile.if_voted
+    if voted == True:
+            vote=request.user.profile.candidate_id
+            return HttpResponse("You have already Voted" )
+
     if face == True:
+        
         if request.method=="POST":
+            profile_form=UpdateProfileForm(request.POST,instance=request.user.profile)
+            profile=profile_form.save(commit=False) 
             form=VoteForm(request.POST)
             vote=request.POST['selected_candidate']
+
+            
+                       
+            profile.if_voted=True
+            profile.if_face_verified=True
+            profile.candidate_id=int(vote);
+            profile_form.save()
+            print(request.user.profile.if_voted)
             print(vote)
             return HttpResponse("voted")
         else:        
@@ -147,7 +163,7 @@ def verification(request):
         os.remove(temp_image)    
         print(result["verified"])
         if result["verified"]==True:
-            profile_form=UpdateProfileForm(request,instance=request.user.profile)
+            profile_form=UpdateProfileForm(request.POST,instance=request.user.profile)
             profile=profile_form.save(commit=False)            
             profile.if_face_verified=True
             profile_form.save()

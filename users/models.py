@@ -1,4 +1,5 @@
 
+from pickle import TRUE
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -11,13 +12,13 @@ class UserModel(models.Model):
     pincode=models.IntegerField()
     image=models.ImageField(upload_to="images/")    
     if_voted=models.BooleanField(default=False)
-    if_face_verified=models.BooleanField()
+    if_face_verified=models.BooleanField(default=False)
+    candidate_id=models.IntegerField(default=0,null=True ,blank=True)
 
 
-
-class VoteModel(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="vote")
-    candidate_id=models.IntegerField()
+# class VoteModel(models.Model):
+#     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name="vote")
+   
     
 
 class Candidte(models.Model):

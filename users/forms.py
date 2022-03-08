@@ -3,7 +3,7 @@ from pyexpat import model
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms    
-from .models import VoteModel,UserModel
+from .models import UserModel
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(label='Password',widget=forms.PasswordInput)
@@ -26,7 +26,7 @@ class UserProfileForm(forms.ModelForm):
 class UpdateProfileForm(forms.ModelForm):
     class Meta:
         model=UserModel
-        fields=('if_voted','if_face_verified')
+        fields=('if_voted','if_face_verified','candidate_id')
 
 class VoteForm(forms.Form):
     # choices = {'0':'Miti','1':'Mihir','2':'Ashwini'}
