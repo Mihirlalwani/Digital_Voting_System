@@ -1,13 +1,16 @@
 var btnStart = document.getElementById( "btn-start" );
-            var btnStop = document.getElementById( "btn-stop" );
-            var btnCapture = document.getElementById( "btn-capture" );
+var btnStop = document.getElementById( "btn-stop" );
+var btnCapture = document.getElementById( "btn-capture" );
 
-            // The stream & capture
-            var stream = document.getElementById( "stream" );
-            var capture = document.getElementById( "capture" );
-            var snapshot = document.getElementById( "snapshot" );
-
-            var cameraStream = null;
+// The stream & capture
+var stream = document.getElementById( "stream" );
+var capture = document.getElementById( "capture" );
+var snapshot = document.getElementById( "snapshot" );
+let model;
+// declare a canvas variable and get its context
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+var cameraStream = null;
 
 // Attach listeners
             btnStart.addEventListener( "click", startStreaming );
@@ -43,6 +46,46 @@ var btnStart = document.getElementById( "btn-start" );
                 }
             }
 
+            const detectFaces = async () => {
+                const prediction = await model.estimateFaces(stream, false);
+              
+                console.log(prediction);
+              
+                // draw the video first
+                ctx.drawImage(stream, 0, 0, 650, 500);
+              
+                prediction.forEach((pred) => {
+                  
+                  // draw the rectangle enclosing the face
+                  ctx.beginPath();
+                  ctx.lineWidth = "3";
+                  ctx.strokeStyle = "green";
+                  // the last two arguments are width and height
+                  // since blazeface returned only the coordinates, 
+                  // we can find the width and height by subtracting them.
+                  ctx.rect(
+                    pred.topLeft[0],
+                    pred.topLeft[1],
+                    pred.bottomRight[0] - pred.topLeft[0],
+                    pred.bottomRight[1] - pred.topLeft[1]
+                  );
+                  ctx.stroke();
+                  
+                  // drawing small rectangles for the face landmarks
+                  // ctx.fillStyle = "red";
+                  // pred.landmarks.forEach((landmark) => {
+                  //   ctx.fillRect(landmark[0], landmark[1], 5, 5);
+                  // });
+                  
+                });
+              };
+
+
+            stream.addEventListener("loadeddata", async () => {
+                model = await blazeface.load();
+                // call detect faces every 100 milliseconds or 10 times every second
+                setInterval(detectFaces, 100);
+              });
             // Stop Streaming
             function stopStreaming() {
 
