@@ -387,3 +387,7 @@
     text-decoration: none;
     border-radius: 9px;
   }
+
+  .alert-error{
+    color: red;
+  }
