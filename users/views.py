@@ -109,7 +109,10 @@ def vote(request):
     voted=request.user.profile.if_voted
     if voted == True:
             vote=request.user.profile.candidate_id
-            return HttpResponse("You have already Voted" )
+            candidate=Candidte.objects.get(candidate_id=vote)
+            return render(request,"users/voted.html",{
+                "candidate":candidate,
+                })
 
     if face == True:
         
@@ -127,7 +130,12 @@ def vote(request):
             profile_form.save()
             print(request.user.profile.if_voted)
             print(vote)
-            return HttpResponse("voted")
+            vote=request.user.profile.candidate_id
+            candidate=Candidte.objects.get(candidate_id=vote)
+            return render(request,"users/voted.html",{
+                "candidate":candidate,
+                })
+            # return HttpResponse("voted")
         else:        
             candidates=Candidte.objects.all()
             form=VoteForm()

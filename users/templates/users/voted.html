@@ -1,0 +1,12 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'users/css/main.css' %}">
+
+    <p id="header-paragraph" style="margin-left:10%; color: #fff;">
+        You have voted for {{candidate.candidate_name}}
+    </p>
+
+{% endblock %}

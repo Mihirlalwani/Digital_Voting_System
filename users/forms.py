@@ -21,7 +21,7 @@ class UserRegisterForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model=UserModel
-        exclude=('if_voted','user','if_face_verified','image')
+        exclude=('if_voted','user','if_face_verified','image','candidate_id')
 
 class UpdateProfileForm(forms.ModelForm):
     class Meta:

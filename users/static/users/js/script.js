@@ -48,9 +48,15 @@ var cameraStream = null;
 
             const detectFaces = async () => {
                 const prediction = await model.estimateFaces(stream, false);
-              
                 console.log(prediction);
+                console.log(prediction.length);
                 console.log(prediction[0].probability[0]);
+                if (prediction.length > 1 )
+                {
+                    var error = document.getElementById("error");
+                    error.innerHTML="Multiple Faces Detected!";
+                    console.log(error);
+                }
                 // draw the video first
                 ctx.drawImage(stream, 0, 0, 650, 500);
               
