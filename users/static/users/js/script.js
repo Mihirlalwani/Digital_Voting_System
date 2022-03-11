@@ -12,6 +12,9 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 var cameraStream = null;
 
+//var error
+var error = document.getElementById("error");
+
 // Attach listeners
             btnStart.addEventListener( "click", startStreaming );
             btnStop.addEventListener( "click", stopStreaming );
@@ -50,16 +53,47 @@ var cameraStream = null;
                 const prediction = await model.estimateFaces(stream, false);
                 console.log(prediction);
                 console.log(prediction.length);
-                console.log(prediction[0].probability[0]);
-                if (prediction.length > 1 )
-                {
-                    var error = document.getElementById("error");
-                    error.innerHTML="Multiple Faces Detected!";
-                    console.log(error);
-                }
+                //console.log(prediction[0].probability[0]);
+                
                 // draw the video first
                 ctx.drawImage(stream, 0, 0, 650, 500);
-              
+                // if(prediction.length === 0 )
+                // {
+                //     var error = document.getElementById("error");
+                //     error.innerHTML="No Face Detected!";
+                //     console.log(error);
+                // }
+                if(prediction.length == 0)
+                {
+                    
+                    error.innerHTML="No Face Detected!";
+                    console.log(error);
+                    setTimeout(timeout, 1000);
+                }
+
+                else if(prediction.length > 1 )
+                {
+                    error.innerHTML="Multiple Faces Detected!";
+                    console.log(error);
+                    setTimeout(timeout, 1000);
+                }
+                else if(prediction[0].probability[0] < 0.95)
+                {
+                   
+                    error.innerHTML="Face Not Clear!";
+                    console.log(error);
+                    setTimeout(timeout, 1000);
+                }
+                // else if(prediction[0].probability[0] > 0.95 && prediction.length == 1)
+                // {
+                    
+                //     error.innerHTML="Good Angle!";
+                //     console.log(error);
+                //     setTimeout(timeout, 1000);
+                // }
+                
+                
+
                 prediction.forEach((pred) => {
                   
                   // draw the rectangle enclosing the face
@@ -82,9 +116,15 @@ var cameraStream = null;
                   // pred.landmarks.forEach((landmark) => {
                   //   ctx.fillRect(landmark[0], landmark[1], 5, 5);
                   // });
+
                   
                 });
               };
+
+            function timeout()
+            {
+                error.innerHTML=" ";
+            }
 
 
             stream.addEventListener("loadeddata", async () => {
@@ -110,8 +150,8 @@ var cameraStream = null;
 
             btnCapture.addEventListener( "click", captureSnapshot );
 
-            function captureSnapshot() {
-
+            function captureSnapshot() 
+            {
                 if( null != cameraStream ) {
 
                     var ctx = capture.getContext( '2d' );
@@ -127,6 +167,7 @@ var cameraStream = null;
                     snapshot.appendChild( img );
                 }
             }
+            
 
             function dataURItoBlob( dataURI ) {
 
