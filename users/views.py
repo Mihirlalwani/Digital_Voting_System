@@ -95,7 +95,14 @@ def profile(request):
 @login_required
 def user_logout(request):
     profile_form=UpdateProfileForm(request.POST,instance=request.user.profile)
-    profile=profile_form.save(commit=False)            
+    profile=profile_form.save(commit=False) 
+    # if profile.if_voted==True:
+    print("Hello")
+    print(profile.candidate_id)
+    profile.if_voted==True;
+    profile.candidate_id=profile.candidate_id
+    print(profile.candidate_id)
+            
     profile.if_face_verified=False
     profile_form.save()
     logout(request)
@@ -107,7 +114,7 @@ def user_logout(request):
 def vote(request):
     face=request.user.profile.if_face_verified 
     voted=request.user.profile.if_voted
-    if voted == True:
+    if voted == True or request.user.profile.candidate_id != 0:
             vote=request.user.profile.candidate_id
             candidate=Candidte.objects.get(candidate_id=vote)
             return render(request,"users/voted.html",{

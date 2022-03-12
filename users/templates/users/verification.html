@@ -29,14 +29,14 @@
                 <button id="btn-start" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
                     VIEW STREAM</button>
                 <div class="play-area-sub">
-                    <video id="stream" width="600" height="400" autoplay style="background-color: #fff; display:none" ></video>
-                    <canvas id="canvas" width="600px" height="400px" style="background-color: #fff;"></canvas>
+                    <video id="stream" width="600" height="400" autoplay style="background-color: #fff; " ></video>
+                    <canvas id="canvas" width="600px" height="400px" style="background-color: #fff;display:none;"></canvas>
                 </div>
             </div>
 
             <div class="column" style="flex: 50%;">
-                <button id="btn-capture" type="button" class="button" style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
-                    CAPTURE IMAGE</button>
+                <button id="btn-capture" type="button" class="button" disabled style="background-color: #080808; color:#ccc; border: none; font-size: 0.85rem;">
+                    CAPTURE IMAGE (*capture only when no error)</button>
                 <div class="play-area-sub">
                     <canvas id="capture" width="310" height="233" style="background-color: #fff;"></canvas>
                     <div id="snapshot" style="display:none;"></div>
