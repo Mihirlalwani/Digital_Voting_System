@@ -54,14 +54,18 @@ var error = document.getElementById("error");
                 console.log(prediction);
                 console.log(prediction.length);
                 //console.log(prediction[0].probability[0]);
-                stream.style.display="None";
-                canvas.style.display="block";
+                
                 // draw the video first
                 ctx.drawImage(stream, 0, 0, 650, 500);
-                
+                // if(prediction.length === 0 )
+                // {
+                //     var error = document.getElementById("error");
+                //     error.innerHTML="No Face Detected!";
+                //     console.log(error);
+                // }
                 if(prediction.length == 0)
                 {
-                    btnCapture.disabled=true;
+                    
                     error.innerHTML="No Face Detected!";
                     console.log(error);
                     setTimeout(timeout, 1000);
@@ -69,23 +73,26 @@ var error = document.getElementById("error");
 
                 else if(prediction.length > 1 )
                 {
-                    btnCapture.disabled=true;
                     error.innerHTML="Multiple Faces Detected!";
                     console.log(error);
                     setTimeout(timeout, 1000);
                 }
                 else if(prediction[0].probability[0] < 0.95)
                 {
-                    btnCapture.disabled=true;
+                   
                     error.innerHTML="Face Not Clear!";
                     console.log(error);
                     setTimeout(timeout, 1000);
                 }
-                else
-                {
-                    btnCapture.disabled=false;
-                }
+                // else if(prediction[0].probability[0] > 0.95 && prediction.length == 1)
+                // {
+                    
+                //     error.innerHTML="Good Angle!";
+                //     console.log(error);
+                //     setTimeout(timeout, 1000);
+                // }
                 
+
                 prediction.forEach((pred) => {
                   
                   // draw the rectangle enclosing the face
