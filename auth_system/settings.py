@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path,os
+from os import getenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ie)&&73o@c=*2gl^%(i_m0agd!x0i1rp%h5+@33ea_3+t@8vu1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("IS_DEV",True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ "*"]
 
 
 # Application definition
@@ -118,10 +119,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+CSRF_TRUSTED_ORIGINS = ['https://3e35-103-132-31-5.in.ngrok.io']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT= BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
 # Default primary key field type

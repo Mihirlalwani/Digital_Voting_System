@@ -22,6 +22,9 @@ var error = document.getElementById("error");
 
             // Start Streaming
             function startStreaming() {
+                if ('mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices) {
+                    console.log("Let's get this party started")
+                  }
 
                 var mediaSupport = 'mediaDevices' in navigator;
 

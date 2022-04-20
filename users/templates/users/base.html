@@ -1,6 +1,6 @@
 <!doctype html>
 {% load static %}
-<html lang="en">
+<html lang="en" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), #efefef url('{% static 'users/images/bg.jpg' %}');">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -13,11 +13,11 @@
     <!--Font Link-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans:wght@800&display=swap" rel="stylesheet">
-
+    {% comment %} <style></style> {% endcomment %}
   </head>
-  <body id="bg" style="background-color: #080808;">
+  <body id="bg" style="background:none" >
   {% load static %}
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="main-navbar">
+     <nav class="navbar navbar-expand-lg navbar-dark " id="main-navbar" style="background: rgba(0, 0, 0, 0.1)">
         <div class="container">
           <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'users/images/vote.png' %}" style="width:50px;" alt="" ></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,9 +26,9 @@
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
               <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-              <a class="nav-link" href="{% url 'vote' %}">Election Details</a>
-              <a class="nav-link" href="#">About Us</a>
-              <a class="nav-link" href="#">Contact Us</a>
+              <a class="nav-link" href="{% url 'election' %}">Election Details</a>
+              {% comment %} <a class="nav-link" href="#">About Us</a> {% endcomment %}
+              <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
 
             </div>
             <form class="d-flex" id="authstyle">
