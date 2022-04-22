@@ -15,6 +15,8 @@ path('logout/',views.user_logout,name='logout'),
 path('vote',views.vote,name="vote"),
 path('verification',views.verification,name="verification"),
 
-path('cam_test',views.cam_test,name="cam_test")
+path('cam_test',views.cam_test,name="cam_test"),
+path('election',views.election,name="election"),
+path('contact',views.contact,name="contact")
 
 ]

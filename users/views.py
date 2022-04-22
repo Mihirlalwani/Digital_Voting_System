@@ -24,6 +24,12 @@ def home(request):
     return render(request,'users/home.html')
 
 
+def election(request):
+    return render(request,'users/election.html')
+
+def contact(request):
+    return render(request,'users/contact_us.html')
+
 def register(request):
     # if request.method=='POST':
     if request.method == 'POST':
