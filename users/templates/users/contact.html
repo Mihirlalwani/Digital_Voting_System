@@ -1,0 +1,31 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block content %}
+
+<section class="section" id="contact">
+    <div class="container text-center">
+        <h6 >CONTACT US</h6>
+        <p class="mb-5 pb-2">We'd love to hear from you!<br>Drop down a message in case of any queries or suggestions</p>
+
+        <form>
+            <div class="row mb-4">
+                <div class="form-group pb-1">
+                    <input type="text" class="form-control" required placeholder="Name">            
+                </div>
+                <div class="form-group pb-1">
+                    <input type="email" class="form-control" required placeholder="Email">          
+                </div>
+                <div class="form-group ">
+                    <input type="text" class="form-control" placeholder="Subject">
+                </div>
+            
+                <textarea name="" id="" cols="" rows="7" class="form-control" required placeholder="Message"></textarea>
+            </div>
+            <div class="form-group" id="signup-button">
+                <button class="btn ">Send</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

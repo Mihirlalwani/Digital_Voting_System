@@ -4,6 +4,7 @@
     background-attachment: fixed;
   }
   #main-navbar{
+    opacity:0.2;
     color: white;
     min-height: 14vh;
     font-size: 15px;
