@@ -120,14 +120,15 @@ def user_logout(request):
 def vote(request):
     face=request.user.profile.if_face_verified 
     voted=request.user.profile.if_voted
-    if voted == True or request.user.profile.candidate_id != 0:
-            vote=request.user.profile.candidate_id
-            candidate=Candidte.objects.get(candidate_id=vote)
-            return render(request,"users/voted.html",{
-                "candidate":candidate,
-                })
-
     if face == True:
+        if voted == True or request.user.profile.candidate_id != 0:
+                vote=request.user.profile.candidate_id
+                candidate=Candidte.objects.get(candidate_id=vote)
+                return render(request,"users/voted.html",{
+                    "candidate":candidate,
+                    })
+
+   
         
         if request.method=="POST":
             profile_form=UpdateProfileForm(request.POST,instance=request.user.profile)

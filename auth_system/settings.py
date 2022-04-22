@@ -119,7 +119,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-CSRF_TRUSTED_ORIGINS = ['https://3e35-103-132-31-5.in.ngrok.io']
+CSRF_TRUSTED_ORIGINS = ['https://78bc-106-210-220-40.in.ngrok.io']
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
